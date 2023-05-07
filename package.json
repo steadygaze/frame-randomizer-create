@@ -1,5 +1,5 @@
 {
-  "name": "showguesser-create",
+  "name": "frame-randomizer-create",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
   "author": "",
   "license": "GPL",
   "bin": {
-    "sg-create": "./index.js",
-    "showguesser-create": "./index.js"
+    "fr-create": "./index.js",
+    "frame-randomizer-create": "./index.js"
   },
   "dependencies": {
     "moviedb-promise": "^3.4.0",

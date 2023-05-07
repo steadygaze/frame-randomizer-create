@@ -6,17 +6,19 @@ const { MovieDb } = require("moviedb-promise");
 const yargs = require("yargs");
 
 const options = yargs
-  .scriptName("sg-create")
+  .scriptName("fr-create")
   .usage("Usage: $0 [options]")
   .option("k", {
     alias: "api_key",
-    describe: "TMDB API key. See https://www.themoviedb.org/documentation/api for instructions on acquiring one.",
+    describe:
+      "TMDB API key. See https://www.themoviedb.org/documentation/api for instructions on acquiring one.",
     type: "string",
     demandOption: true,
   })
   .option("t", {
     alias: "tv_id",
-    describe: "TV show ID in TMDB. This is available from the URL when viewing a TV show on http://www.themoviedb.org.",
+    describe:
+      "TV show ID in TMDB. This is available from the URL when viewing a TV show on http://www.themoviedb.org.",
     type: "string",
     demandOption: true,
   })
