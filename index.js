@@ -61,7 +61,7 @@ async function getEpisodeInfo(options) {
 }
 
 getEpisodeInfo(options).then((result) => {
-  const stringified = JSON.stringify({ entries: result });
+  const stringified = JSON.stringify({ episodes: result });
   const output = options.pretty_print
     ? prettier.format(stringified, { parser: "json" })
     : stringified;
