@@ -35,7 +35,7 @@ const options = yargs
     demandOption: false,
   }).argv;
 
-async function getEpisodeInfo(options) {
+async function getMediaInfo(options) {
   const movieDb = new MovieDb(options.api_key);
   const tvInfo = await movieDb.tvInfo(options.tv_id);
   const seasons = tvInfo.seasons
@@ -57,11 +57,14 @@ async function getEpisodeInfo(options) {
       };
     })
   );
-  return episodeData;
+  return {
+    episodes: episodeData,
+    name: tvInfo.name,
+  };
 }
 
-getEpisodeInfo(options).then((result) => {
-  const stringified = JSON.stringify({ episodes: result });
+getMediaInfo(options).then((result) => {
+  const stringified = JSON.stringify(result);
   const output = options.pretty_print
     ? prettier.format(stringified, { parser: "json" })
     : stringified;
