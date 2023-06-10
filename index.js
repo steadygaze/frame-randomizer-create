@@ -71,7 +71,7 @@ async function getShowData(options) {
       limit(() => movieDb.tvInfo({ id: options.tv_id, language }))
     )
   );
-  const originalLanguage = tvInfo[0].original_language;
+  const original_language = tvInfo[0].original_language;
   const name = {
     name: tvInfo[0].original_name,
     perLanguage: tvInfo.map((info, index) => {
@@ -119,7 +119,13 @@ async function getShowData(options) {
       };
     });
   });
-  return { name, episodes, commonTimings: previousConfig.commonTimings };
+  return {
+    name,
+    ...(original_language &&
+      original_language in languages && { defaultLanguage: original_language }),
+    episodes,
+    commonTimings: previousConfig.commonTimings,
+  };
 }
 
 getShowData(options).then((result) => {
