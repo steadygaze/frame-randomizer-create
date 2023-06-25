@@ -58,7 +58,9 @@ const options = yargs
 async function getShowData(options) {
   const [{ default: pLimit }, previousConfig] = await Promise.all([
     import("p-limit"),
-    fs.readFile(options.existing_config).then(JSON.parse),
+    options.existing_config
+      ? fs.readFile(options.existing_config).then(JSON.parse)
+      : null,
   ]);
 
   const languages = options.languages.flatMap((multiLanguage) =>
@@ -112,19 +114,22 @@ async function getShowData(options) {
         season_number,
         episode_number,
         perLanguage: languageEpisodes.map((perLanguage) => perLanguage[index]),
-        timings: previousConfig.episodes.find(
-          ({ season_number: prevSeasonN, episode_number: prevEpisodeN }) =>
-            prevSeasonN === season_number && prevEpisodeN === episode_number
-        ).timings,
+        timings: previousConfig
+          ? previousConfig.episodes.find(
+              ({ season_number: prevSeasonN, episode_number: prevEpisodeN }) =>
+                prevSeasonN === season_number && prevEpisodeN === episode_number
+            ).timings
+          : undefined, // No timing data available in TMDB.
       };
     });
   });
   return {
     name,
-    ...(original_language &&
-      original_language in languages && { defaultLanguage: original_language }),
+    defaultLanguage: previousConfig
+      ? previousConfig.defaultLanguage
+      : original_language,
     episodes,
-    commonTimings: previousConfig.commonTimings,
+    commonTimings: previousConfig ? previousConfig.commonTimings : undefined,
   };
 }
 
