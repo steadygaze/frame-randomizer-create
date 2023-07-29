@@ -125,8 +125,8 @@ async function getShowData(options) {
   });
   return {
     name,
-    defaultLanguage: previousConfig
-      ? previousConfig.defaultLanguage
+    originalLanguage: previousConfig
+      ? previousConfig.originalLanguage || previousConfig.defaultLanguage
       : original_language,
     episodes,
     commonTimings: previousConfig ? previousConfig.commonTimings : undefined,
